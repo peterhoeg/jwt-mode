@@ -23,7 +23,7 @@
 (defvar jwt-mode-cli-encode-secret nil
   "Secret for creating tokens.")
 
-(defvar jwt-mode-cli-encode-arguments (format "encode --secret '%s'" jwt-cli-encode-secret)
+(defvar jwt-mode-cli-encode-arguments (format "encode --secret '%s'" jwt-mode-cli-encode-secret)
   "Argument for encoding.")
 
 (defvar jwt-mode-show-method 'buffer
@@ -40,13 +40,13 @@
 (require 's)
 (require 'thingatpt)
 
-(defun jwt-mode-construct-command (arg str)
+(defun jwt-mode--construct-command (arg str)
   "Create command to external tool with args ARG and token STR."
-  (format "%s %s '%s'" (executable-find jwt-cli-command) arg str))
+  (format "%s %s '%s'" (executable-find jwt-mode-cli-command) arg str))
 
 (defun jwt-mode-run-command (cmd)
   "Execute external tool CMD."
-  (call-process-shell-command cmd nil jwt-output-buffer nil)
+  (call-process-shell-command cmd nil jwt-mode-output-buffer nil)
   (buffer-string))
 
 ;; TODO: this has to be improved dramatically
